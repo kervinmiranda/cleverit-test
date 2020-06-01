@@ -28,11 +28,11 @@ public class MainController {
 		model.addAttribute("usuarios", userApiService.list());
 		return "welcome";
 	}
-	
+
 	@GetMapping("/new")
 	public String newUser(Model model) {
 		User user = new User();
-		model.addAttribute("User",user);
+		model.addAttribute("User", user);
 		return "new";
 	}
 
@@ -42,29 +42,27 @@ public class MainController {
 		save = userApiService.createUser(user);
 		return (save) ? "redirect:/welcome" : "new";
 	}
-	
+
 	@GetMapping("/edit")
 	public String editUser(Model model, @RequestParam(name = "id", required = false) String id) {
 		User user;
 		user = userApiService.findUser(id);
-		model.addAttribute("User",user);
+		model.addAttribute("User", user);
 		return "edit";
 	}
-	
+
 	@PostMapping("/editsave")
 	public String editUserSave(User user) {
 		boolean save = false;
-		save = userApiService.editUser(user);		
+		save = userApiService.editUser(user);
 		return (save) ? "redirect:/welcome" : "edit";
 	}
-	
+
 	@GetMapping("/delete")
 	public String deleteUser(@RequestParam(name = "id", required = false) String id) {
 		boolean save = false;
 		save = userApiService.deleteUser(id);
 		return "redirect:/welcome";
 	}
-	
-	
 
 }
